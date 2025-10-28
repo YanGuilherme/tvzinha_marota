@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>TVzinha marota</title>
+</head>
+
+
+<body>
+    <h2>Escolha seu canal:</h2>
+
+    <span>Canal atual: </span><span id="canal_atual_texto"></span><br><br>
+
+    <button onclick="atualizarServidor()">Atualizar servidor</button><br>
+
+
+    <div class="canais">
+        <strong>Abertos</strong>
+        <button onclick="atualizarIframe('globomg')">Globo MG</button>
+        <button onclick="atualizarIframe('band')">Band</button>
+        <button onclick="atualizarIframe('bandsport')">Band Sports</button>
+        <button onclick="atualizarIframe('combate')">Combate</button>
+        <br>
+        <strong>SporTV</strong>
+        <button onclick="atualizarIframe('sportv')">Sportv</button>
+        <button onclick="atualizarIframe('sportv2')">Sportv2</button>
+        <button onclick="atualizarIframe('sportv3')">Sportv3</button>
+        <br>
+        <strong>Premiere</strong>
+        <button onclick="atualizarIframe('pre1')">Premiere</button>
+        <button onclick="atualizarIframe('pre2')">Premiere 2</button>
+        <button onclick="atualizarIframe('pre3')">Premiere 3</button>
+        <button onclick="atualizarIframe('pre4')">Premiere 4</button>
+        <button onclick="atualizarIframe('pre5')">Premiere 5</button>
+        <button onclick="atualizarIframe('pre6')">Premiere 6</button>
+        <button onclick="atualizarIframe('pre7')">Premiere 7</button>
+        <br>
+        <strong>Filmes e séries</strong>
+        <button onclick="atualizarIframe('tnt')">TNT</button>
+        <button onclick="atualizarIframe('space')">Space</button>
+        <br>
+        <strong>Paramount</strong>
+        <button onclick="atualizarIframe('espn')">ESPN 1</button>
+        <button onclick="atualizarIframe('espn2')">ESPN 2</button>
+        <button onclick="atualizarIframe('espn3')">ESPN 3</button>
+        <button onclick="atualizarIframe('espn4')">ESPN 4</button>
+        <br>
+        <strong>Paramount</strong>
+        <button onclick="atualizarIframe('para1')">Paramount 1</button>
+        <button onclick="atualizarIframe('para2')">Paramount 2</button>
+
+    </div>
+
+    <iframe id="meuIframe" src="https://02.arlivre.online/space/index.m3u8" width="100%" height="600px"
+        style="border:0;" allowfullscreen>
+    </iframe>
+
+    <script>
+
+        const instancia1 = '01';
+        const instancia2 = '02';
+
+        let troca = true;
+
+        const iframe = document.getElementById("meuIframe");
+
+        let canal_atual = '';
+
+        function atualizarIframe(canal) {
+            valor = canal.trim();
+            if (!valor) {
+                alert('Digite um valor para o ID.');
+                return;
+            }
+
+            canal_atual = valor;
+
+            iframe.src = `https://${troca ? instancia1 : instancia2}.arlivre.online/${encodeURIComponent(valor)}/index.m3u8`;
+            const canal_atual_texto = document.getElementById("canal_atual_texto").textContent = canal_atual;
+        }
+
+        function atualizarServidor() {
+            troca = !troca;
+            atualizarIframe(canal_atual)
+        }
+
+    </script>
+
+</body>
+
+</html>
